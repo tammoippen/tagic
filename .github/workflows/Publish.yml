@@ -1,0 +1,31 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - uses: snok/install-poetry@v1
+
+      - run: poetry build -vvv -f sdist
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: dist/*.tar.gz
+
+      - name: Publish
+        run: poetry publish -vvv -n -u __token__ -p ${{ secrets.PYPI_TOKEN }}
