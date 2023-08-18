@@ -284,6 +284,42 @@ class HTMLElement(Node):
     onvolumechange: str | None = None
     onwaiting: str | None = None
 
+    def add_class(self, *classes: str) -> None:
+        """Add classes to the 'class' attribute of the tag.
+
+        Also makes the classes unique while preserving the order.
+
+        (Convenience method.)
+        """
+        class_list = (self.class_ or "").split()
+        # dict keeps insert order, but makes them unique
+        class_dict = {cl: cl for cl in class_list}
+        for cl in classes:
+            assert cl.strip(), f"'{cl=}' cannot be empty."
+            assert len(cl.split()) == 1, f"{cl=}only one class allowed"
+            class_dict[cl] = cl
+
+        self.class_ = " ".join(class_dict.keys())
+
+    def remove_class(self, *classes: str) -> None:
+        """Remove classes to the 'class' attribute of the tag.
+
+        Also makes the classes unique while preserving the order.
+
+        (Convenience method.)
+        """
+        class_list = (self.class_ or "").split()
+        # dict keeps insert order, but makes them unique
+        class_dict = {cl: cl for cl in class_list}
+        for cl in classes:
+            assert cl.strip(), f"'{cl=}' cannot be empty."
+            assert len(cl.split()) == 1, f"{cl=}only one class allowed"
+            class_dict.pop(cl, None)
+        if class_dict:
+            self.class_ = " ".join(class_dict.keys())
+        else:
+            self.class_ = None
+
     def _render_attr(self) -> str:
         result = super()._render_attr()
 

@@ -68,6 +68,43 @@ def test_basic_tags():
     assert expect == div(title="bar", id="foo")["XYZ"].render()
 
 
+def test_adding_classes():
+    tag = div(class_="foo foo")["XYZ"]
+    assert '<div class="foo foo">XYZ</div>' == tag.render()
+
+    tag.add_class("foo", "foo")
+    assert '<div class="foo">XYZ</div>' == tag.render()
+
+    tag.add_class("bar")
+    assert '<div class="foo bar">XYZ</div>' == tag.render()
+
+    tag.add_class("foo", "bar")
+    assert '<div class="foo bar">XYZ</div>' == tag.render()
+
+    tag.add_class("bar")
+    assert '<div class="foo bar">XYZ</div>' == tag.render()
+
+    tag.add_class("foo", "baz", "bar")
+    assert '<div class="foo bar baz">XYZ</div>' == tag.render()
+
+
+def test_removing_classes():
+    tag = div()
+    assert "<div />" == tag.render()
+
+    tag.remove_class("foo", "bar", "baz")
+    assert "<div />" == tag.render()
+
+    tag.add_class("foo", "bar", "baz")
+    assert '<div class="foo bar baz" />' == tag.render()
+
+    tag.remove_class("foo", "foo", "baz")
+    assert '<div class="bar" />' == tag.render()
+
+    tag.remove_class("bar", "baz")
+    assert "<div />" == tag.render()
+
+
 def test_can_add_to_children():
     expect = '<div id="foo" title="bar">XYZ</div>'
     assert expect == div(title="bar", id="foo", children=["XYZ"]).render()
@@ -140,6 +177,9 @@ def test_indent():
             "      This is special text\n"
             "    </span>\n"
             "  </p>\n"
+            '  <p id="foo">\n'
+            "    some more text\n"
+            "  </p>\n"
             "</div>\n"
         )
         assert expect == div[
@@ -148,7 +188,8 @@ def test_indent():
                 br(),
                 "and some more text",
                 span["This is special text"],
-            ]
+            ],
+            p(id="foo")["some more text"],
         ].render(indent=True)
 
         # you can change the indent per level with the config
@@ -187,6 +228,7 @@ def test_readme():
         "    </title>\n"
         '    <meta content="This is an example website build with tagic" '
         'name="description" />\n'
+        '    <meta charset="utf-8" />\n'
         "  </head>\n"
         "  <body>\n"
         '    <header id="header">\n'
@@ -213,6 +255,9 @@ def test_readme():
             meta(
                 name="description",
                 content="This is an example website build with tagic",
+            ),
+            meta(
+                charset="utf-8",
             ),
         ],
         body[
