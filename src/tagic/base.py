@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field, fields, replace
+from dataclasses import dataclass, field, fields
 from html import escape
 from typing import Any, ClassVar, Iterable, Protocol, Self
 
@@ -31,13 +31,12 @@ class Node(metaclass=_Meta):
 
     def __getitem__(self, child: str | CanRender | Iterable[str | CanRender]) -> Self:
         """Add children to the node via []-syntax."""
-        result = replace(self)
         if isinstance(child, Iterable) and not isinstance(child, str):
-            result.children = list(child)
+            self.children = list(child)
         else:
-            result.children = [child]
+            self.children = [child]
 
-        return result
+        return self
 
     @property
     def tag_name(self) -> str:
