@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field, fields
 from html import escape
-from typing import Any, ClassVar, Iterable, Protocol, Self
+from typing import ClassVar, Iterable, Protocol, Self
 
 
 class CanRender(Protocol):
@@ -19,8 +19,8 @@ class DOMConfig:
 class _Meta(type):
     """Allow []-access on the class of Nodes."""
 
-    def __getitem__(self, child: str | CanRender | Iterable[str | CanRender]) -> Any:
-        return self()[child]
+    def __getitem__(self, child: str | CanRender | Iterable[str | CanRender]) -> "Node":
+        return self()[child]  # type: ignore
 
 
 @dataclass(kw_only=True, slots=True)
