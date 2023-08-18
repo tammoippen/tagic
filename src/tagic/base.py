@@ -23,7 +23,7 @@ class _Meta(type):
         return self()[child]
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True)
 class Node(metaclass=_Meta):
     NAME: ClassVar[str | None] = None
     attr: dict[str, str | bool] = field(default_factory=dict)
@@ -43,6 +43,9 @@ class Node(metaclass=_Meta):
         return self.NAME or self.__class__.__name__
 
     def __str__(self) -> str:
+        return self.render()
+
+    def __repr__(self) -> str:
         return self.render()
 
     def render(self, indent: bool = False) -> str:

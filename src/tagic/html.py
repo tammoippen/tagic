@@ -4,7 +4,7 @@ from typing import Literal
 from .base import DOMConfig, Node
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class HTMLElement(Node):
     """Base HTML Element.
 
@@ -284,6 +284,111 @@ class HTMLElement(Node):
     onvolumechange: str | None = None
     onwaiting: str | None = None
 
+    # htmx attributes: https://htmx.org/reference/
+    hx_boost: str | None = None
+    """add or remove progressive enhancement for links and forms"""
+
+    hx_get: str | None = None
+    """issues a GET to the specified URL"""
+
+    hx_post: str | None = None
+    """issues a POST to the specified URL"""
+
+    hx_on: str | None = None
+    """handle any event with a script inline"""
+
+    hx_push_url: str | None = None
+    """pushes the URL into the browser location bar, creating a new history entry"""
+
+    hx_select: str | None = None
+    """select content to swap in from a response"""
+
+    hx_select_oob: str | None = None
+    """select content to swap in from a response, out of band (somewhere other
+    than the target)"""
+
+    hx_swap: str | None = None
+    """controls how content is swapped in (outerHTML, beforeend, afterend, …)"""
+
+    hx_swap_oob: str | None = None
+    """marks content in a response to be out of band (should swap in somewhere other
+    than the target)"""
+
+    hx_target: str | None = None
+    """specifies the target element to be swapped"""
+
+    hx_trigger: str | None = None
+    """specifies the event that triggers the request"""
+
+    hx_vals: str | None = None
+    """adds values to the parameters to submit with the request (JSON-formatted)"""
+
+    hx_confirm: str | None = None
+    """shows a confirm() dialog before issuing a request"""
+
+    hx_delete: str | None = None
+    """issues a DELETE to the specified URL"""
+
+    hx_disable: str | None = None
+    """disables htmx processing for the given node and any children nodes"""
+
+    hx_disinherit: str | None = None
+    """control and disable automatic attribute inheritance for child nodes"""
+
+    hx_encoding: str | None = None
+    """changes the request encoding type"""
+
+    hx_ext: str | None = None
+    """extensions to use for this element"""
+
+    hx_headers: str | None = None
+    """adds to the headers that will be submitted with the request"""
+
+    hx_history: str | None = None
+    """prevent sensitive data being saved to the history cache"""
+
+    hx_history_elt: str | None = None
+    """the element to snapshot and restore during history navigation"""
+
+    hx_include: str | None = None
+    """include additional data in requests"""
+
+    hx_indicator: str | None = None
+    """the element to put the htmx-request class on during the request"""
+
+    hx_params: str | None = None
+    """filters the parameters that will be submitted with a request"""
+
+    hx_patch: str | None = None
+    """issues a PATCH to the specified URL"""
+
+    hx_preserve: str | None = None
+    """specifies elements to keep unchanged between requests"""
+
+    hx_prompt: str | None = None
+    """shows a prompt() before submitting a request"""
+
+    hx_put: str | None = None
+    """issues a PUT to the specified URL"""
+
+    hx_replace_url: str | None = None
+    """replace the URL in the browser location bar"""
+
+    hx_request: str | None = None
+    """configures various aspects of the request"""
+
+    hx_sse: str | None = None
+    """has been moved to an extension. Documentation for older versions"""
+
+    hx_sync: str | None = None
+    """control how requests made by different elements are synchronized"""
+
+    hx_validate: str | None = None
+    """force elements to validate themselves before a request"""
+
+    hx_ws: str | None = None
+    """has been moved to an extension. Documentation for older versions"""
+
     def add_class(self, *classes: str) -> None:
         """Add classes to the 'class' attribute of the tag.
 
@@ -321,7 +426,7 @@ class HTMLElement(Node):
             self.class_ = None
 
     def _render_attr(self) -> str:
-        result = super()._render_attr()
+        result = super(HTMLElement, self)._render_attr()
 
         for name, value in self.data_attr.items():
             result += self._render_single_attr(f"data-{name}", value)
@@ -347,7 +452,7 @@ _ReferrerPolicy = Literal[
 ]
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class a(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"""
 
@@ -361,37 +466,37 @@ class a(HTMLElement):
     type: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class abbr(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class acronym(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/acronym"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class address(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/address"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class area(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class article(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class aside(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class audio(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio"""
 
@@ -406,12 +511,12 @@ class audio(HTMLElement):
     src: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class b(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class base(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base"""
 
@@ -419,26 +524,26 @@ class base(HTMLElement):
     target: _Target | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class bdi(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class bdo(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdo"""
 
     dir_: Literal["ltr", "rtl", None] = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class blockquote(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote"""
 
     cite: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class body(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body"""
 
@@ -462,12 +567,12 @@ class body(HTMLElement):
     onunload: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class br(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class button(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"""
 
@@ -486,7 +591,7 @@ class button(HTMLElement):
     value: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class canvas(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas"""
 
@@ -494,53 +599,53 @@ class canvas(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class caption(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/caption"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class cite(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/cite"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class code(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class col(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/col"""
 
     span: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class colgroup(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup"""
 
     span: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class data(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data"""
 
     value: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class datalist(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class dd(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dd"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class del_(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del_"""
 
@@ -548,46 +653,46 @@ class del_(HTMLElement):
     datetime: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class details(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"""
 
     open: bool = False
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class dfn(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dfn"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class dialog(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"""
 
     open: bool = False
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class div(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class dl(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class dt(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dt"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class em(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class embed(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed"""
 
@@ -597,7 +702,7 @@ class embed(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class fieldset(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset"""
 
@@ -606,22 +711,22 @@ class fieldset(HTMLElement):
     name: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class figcaption(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class figure(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class footer(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class form(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form"""
 
@@ -637,59 +742,59 @@ class form(HTMLElement):
     target: _Target | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class h1(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h1"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class h2(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class h3(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class h4(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h4"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class h5(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h5"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class h6(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h6"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class head(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head"""
 
     profile: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class header(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class hgroup(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hgroup"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class hr(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class html(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html"""
 
@@ -701,17 +806,17 @@ class html(HTMLElement):
                 '<?xml version="1.0" encoding="UTF-8" ?>\n'
                 '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" '
                 '"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n'
-            ) + super().do_render(indent)
+            ) + super(html, self).do_render(indent)
         else:
-            return "<!DOCTYPE html>\n" + super().do_render(indent)
+            return "<!DOCTYPE html>\n" + super(html, self).do_render(indent)
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class i(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class iframe(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe"""
 
@@ -730,7 +835,7 @@ class iframe(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class img(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img"""
 
@@ -750,7 +855,7 @@ class img(HTMLElement):
     usemap: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class input(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"""
 
@@ -820,7 +925,7 @@ class input(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class ins(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins"""
 
@@ -828,31 +933,31 @@ class ins(HTMLElement):
     datetime: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class kbd(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class label(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label"""
 
     for_: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class legend(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class li(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li"""
 
     value: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class link(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link"""
 
@@ -881,29 +986,29 @@ class link(HTMLElement):
     blocking: bool = False
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class main(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class map(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map"""
 
     name: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class mark(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class menu(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class meta(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta"""
 
@@ -913,7 +1018,7 @@ class meta(HTMLElement):
     name: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class meter(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter"""
 
@@ -926,17 +1031,17 @@ class meter(HTMLElement):
     form: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class nav(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class noscript(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class object(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object"""
 
@@ -949,7 +1054,7 @@ class object(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class ol(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol"""
 
@@ -958,7 +1063,7 @@ class ol(HTMLElement):
     type: Literal["a", "A", "i", "I", "1"] | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class optgroup(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup"""
 
@@ -966,7 +1071,7 @@ class optgroup(HTMLElement):
     label: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class option(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option"""
 
@@ -976,7 +1081,7 @@ class option(HTMLElement):
     value: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class output(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output"""
 
@@ -985,17 +1090,17 @@ class output(HTMLElement):
     name: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class p(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class picture(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class portal(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/portal"""
 
@@ -1003,12 +1108,12 @@ class portal(HTMLElement):
     src: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class pre(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class progress(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress"""
 
@@ -1016,39 +1121,39 @@ class progress(HTMLElement):
     value: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class q(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q"""
 
     cite: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class rp(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/rp"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class rt(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/rt"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class ruby(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ruby"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class s(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class samp(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class script(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script"""
 
@@ -1065,17 +1170,17 @@ class script(HTMLElement):
     blocking: bool = False
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class search(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class section(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class select(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"""
 
@@ -1089,19 +1194,19 @@ class select(HTMLElement):
     size: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class slot(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot"""
 
     name: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class small(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/small"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class source(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source"""
 
@@ -1114,17 +1219,17 @@ class source(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class span(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class strong(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class style(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style"""
 
@@ -1134,32 +1239,32 @@ class style(HTMLElement):
     blocking: bool = False
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class sub(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sub"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class summary(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class sup(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sup"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class table(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class tbody(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class td(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td"""
 
@@ -1168,12 +1273,12 @@ class td(HTMLElement):
     rowspan: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class template(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class textarea(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"""
 
@@ -1194,12 +1299,12 @@ class textarea(HTMLElement):
     wrap: Literal["hard", "soft", "off", None] = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class tfoot(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tfoot"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class th(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th"""
 
@@ -1210,29 +1315,29 @@ class th(HTMLElement):
     scope: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class thead(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class time(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time"""
 
     datetime: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class title(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class tr(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class track(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track"""
 
@@ -1245,22 +1350,22 @@ class track(HTMLElement):
     srclang: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class u(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/u"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class ul(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class var(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var"""
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class video(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"""
 
@@ -1280,6 +1385,6 @@ class video(HTMLElement):
     width: str | None = None
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, slots=True, repr=False)
 class wbr(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/wbr"""
