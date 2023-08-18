@@ -15,6 +15,7 @@ from tagic.html import (
     p,
     script,
     span,
+    style,
     title,
 )
 from tagic.html import (
@@ -282,4 +283,11 @@ def test_script_is_special():
     )
     assert "<script type=\"text/javascript\">console.log('test');</script>" == str(
         script(type="text/javascript")[base.NoEscape("console.log('test');")]
+    )
+
+
+def test_style_is_special():
+    assert "<style></style>" == str(style())
+    assert "<style>p {\n color: #26b72b;\n}</style>" == str(
+        style[base.NoEscape("p {\n color: #26b72b;\n}")]
     )

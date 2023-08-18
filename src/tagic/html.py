@@ -1170,7 +1170,7 @@ class script(HTMLElement):
     blocking: bool = False
 
     def do_render(self, indent: str | None) -> str:
-        # script-tags must have a closing tag, they cannot be self-closing
+        # script-tags must have a closing tag
         if self.children == []:
             self.children = [""]
         return super(script, self).do_render(indent)
@@ -1243,6 +1243,12 @@ class style(HTMLElement):
     nonce: str | None = None
     title: str | None = None
     blocking: bool = False
+
+    def do_render(self, indent: str | None) -> str:
+        # style-tags must have a closing tag
+        if self.children == []:
+            self.children = [""]
+        return super(style, self).do_render(indent)
 
 
 @dataclass(kw_only=True, slots=True, repr=False)
