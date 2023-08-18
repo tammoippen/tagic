@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tagic"
-version = "1.0.3"
+version = "1.0.4"
 description = "Build html / xhtml with a nice syntax."
 authors = ["Tammo Ippen <tammo.ippen@posteo.de>"]
 readme = "README.md"
