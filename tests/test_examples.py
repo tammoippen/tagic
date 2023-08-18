@@ -13,6 +13,7 @@ from tagic.html import (
     main,
     meta,
     p,
+    script,
     span,
     title,
 )
@@ -29,6 +30,11 @@ def test_html():
 def test_str():
     expect = "<!DOCTYPE html>\n<html />"
     assert expect == str(html_tag())
+
+
+def test_repr():
+    expect = "<!DOCTYPE html>\n<html />"
+    assert expect == repr(html_tag())
 
 
 def test_html_with_content():
@@ -267,4 +273,13 @@ def test_readme():
         ],
     ].render(
         indent=True
+    )
+
+
+def test_script_is_special():
+    assert '<script src="/static/htmx.min.js" type="text/javascript"></script>' == str(
+        script(type="text/javascript", src="/static/htmx.min.js")
+    )
+    assert "<script type=\"text/javascript\">console.log('test');</script>" == str(
+        script(type="text/javascript")[base.NoEscape("console.log('test');")]
     )

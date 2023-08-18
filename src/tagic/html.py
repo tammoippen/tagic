@@ -1169,6 +1169,12 @@ class script(HTMLElement):
     type: str | Literal["module", "importmap"] | None = None
     blocking: bool = False
 
+    def do_render(self, indent: str | None) -> str:
+        # script-tags must have a closing tag, they cannot be self-closing
+        if self.children == []:
+            self.children = [""]
+        return super(script, self).do_render(indent)
+
 
 @dataclass(kw_only=True, slots=True, repr=False)
 class search(HTMLElement):
