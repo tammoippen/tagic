@@ -3,6 +3,8 @@ from typing import Literal
 
 from .base import DOMConfig, Node
 
+BoolVals = Literal["true", "false"]
+
 
 @dataclass(kw_only=True, slots=True, repr=False)
 class HTMLElement(Node):
@@ -38,7 +40,7 @@ class HTMLElement(Node):
     the class selectors or functions like the DOM method
     document.getElementsByClassName."""
 
-    contenteditable: Literal["true", "false", "plaintext-only"] | None = None
+    contenteditable: BoolVals | Literal["plaintext-only"] | None = None
     """The contenteditable global attribute is an enumerated
     attribute indicating if the element should be editable by
     the user. If so, the browser modifies its widget to allow
@@ -48,7 +50,7 @@ class HTMLElement(Node):
     """The dir global attribute is an enumerated attribute that
     indicates the directionality of the element's text."""
 
-    draggable: Literal["true", "false"] | None = None
+    draggable: BoolVals | None = None
     """The draggable global attribute is an enumerated attribute
     that indicates whether the element can be dragged, either
     with native browser behavior or the HTML Drag and Drop API."""
@@ -163,7 +165,7 @@ class HTMLElement(Node):
     is assigned to the slot created by the <slot> element whose
     name attribute's value matches that slot attribute's value."""
 
-    spellcheck: Literal["", "true", "false", "default"] | None = None
+    spellcheck: BoolVals | Literal["", "default"] | None = None
     """The spellcheck global attribute is an enumerated attribute
     that defines whether the element may be checked for
     spelling errors."""
@@ -285,7 +287,7 @@ class HTMLElement(Node):
     onwaiting: str | None = None
 
     # htmx attributes: https://htmx.org/reference/
-    hx_boost: str | None = None
+    hx_boost: BoolVals | None = None
     """add or remove progressive enhancement for links and forms"""
 
     hx_get: str | None = None
@@ -307,10 +309,28 @@ class HTMLElement(Node):
     """select content to swap in from a response, out of band (somewhere other
     than the target)"""
 
-    hx_swap: str | None = None
+    hx_swap: Literal[
+        "innerHTML",
+        "outerHTML",
+        "beforebegin",
+        "afterbegin",
+        "beforeend",
+        "afterend",
+        "delete",
+        "none",
+    ] | None = None
     """controls how content is swapped in (outerHTML, beforeend, afterend, …)"""
 
-    hx_swap_oob: str | None = None
+    hx_swap_oob: BoolVals | Literal[
+        "innerHTML",
+        "outerHTML",
+        "beforebegin",
+        "afterbegin",
+        "beforeend",
+        "afterend",
+        "delete",
+        "none",
+    ] | str | None = None
     """marks content in a response to be out of band (should swap in somewhere other
     than the target)"""
 
@@ -329,7 +349,7 @@ class HTMLElement(Node):
     hx_delete: str | None = None
     """issues a DELETE to the specified URL"""
 
-    hx_disable: str | None = None
+    hx_disable: BoolVals | None = None
     """disables htmx processing for the given node and any children nodes"""
 
     hx_disinherit: str | None = None
@@ -821,9 +841,9 @@ class iframe(HTMLElement):
     """see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe"""
 
     allow: str | None = None
-    allowfullscreen: Literal["true", None] = None
-    allowpaymentrequest: Literal["true", None] = None
-    credentialless: Literal["true", None] = None
+    allowfullscreen: BoolVals | None = None
+    allowpaymentrequest: BoolVals | None = None
+    credentialless: BoolVals | None = None
     csp: str | None = None
     height: str | None = None
     loading: Literal["eager", "lazy", None] = None
