@@ -288,25 +288,46 @@ class HTMLElement(Node):
 
     # htmx attributes: https://htmx.org/reference/
     hx_boost: BoolVals | None = None
-    """add or remove progressive enhancement for links and forms"""
+    """add or remove progressive enhancement for links and forms
+
+       see https://htmx.org/attributes/hx-boost/
+    """
 
     hx_get: str | None = None
-    """issues a GET to the specified URL"""
+    """issues a GET to the specified URL
+
+       see https://htmx.org/attributes/hx-get/
+    """
 
     hx_post: str | None = None
-    """issues a POST to the specified URL"""
+    """issues a POST to the specified URL
+
+       see https://htmx.org/attributes/hx-post/
+    """
 
     hx_on: str | None = None
-    """handle any event with a script inline"""
+    """handle any event with a script inline
+
+       see https://htmx.org/attributes/hx-on/
+    """
 
     hx_push_url: str | None = None
-    """pushes the URL into the browser location bar, creating a new history entry"""
+    """pushes the URL into the browser location bar, creating a new history entry
+
+       see https://htmx.org/attributes/hx-push-url/
+    """
 
     hx_select: str | None = None
-    """select content to swap in from a response"""
+    """select content to swap in from a response
+
+       see https://htmx.org/attributes/hx-select/
+    """
 
     hx_select_oob: str | None = None
-    """select content to swap in from a response, out of band (somewhere other
+    """select content to swap in from a response, out of band (somewhere ot
+
+       see https://htmx.org/attributes/hx-select-oob/
+    her
     than the target)"""
 
     hx_swap: Literal[
@@ -319,7 +340,10 @@ class HTMLElement(Node):
         "delete",
         "none",
     ] | None = None
-    """controls how content is swapped in (outerHTML, beforeend, afterend, …)"""
+    """controls how content is swapped in (outerHTML, beforeend, afterend, …)
+
+       see https://htmx.org/attributes/hx-swap/
+    """
 
     hx_swap_oob: BoolVals | Literal[
         "innerHTML",
@@ -332,82 +356,160 @@ class HTMLElement(Node):
         "none",
     ] | str | None = None
     """marks content in a response to be out of band (should swap in somewhere other
-    than the target)"""
+    than the target)
+
+       see https://htmx.org/attributes/hx-swap-oob/
+    """
 
     hx_target: str | None = None
-    """specifies the target element to be swapped"""
+    """specifies the target element to be swapped
+
+       see https://htmx.org/attributes/hx-target/
+    """
 
     hx_trigger: str | None = None
-    """specifies the event that triggers the request"""
+    """specifies the event that triggers the request
+
+       see https://htmx.org/attributes/hx-trigger/
+    """
 
     hx_vals: str | None = None
-    """adds values to the parameters to submit with the request (JSON-formatted)"""
+    """adds values to the parameters to submit with the request (JSON-formatted)
+
+       see https://htmx.org/attributes/hx-vals/
+    """
 
     hx_confirm: str | None = None
-    """shows a confirm() dialog before issuing a request"""
+    """shows a confirm() dialog before issuing a request
+
+       see https://htmx.org/attributes/hx-confirm/
+    """
 
     hx_delete: str | None = None
-    """issues a DELETE to the specified URL"""
+    """issues a DELETE to the specified URL
+
+       see https://htmx.org/attributes/hx-delete/
+    """
 
     hx_disable: BoolVals | None = None
-    """disables htmx processing for the given node and any children nodes"""
+    """disables htmx processing for the given node and any children nodes
+
+       see https://htmx.org/attributes/hx-disable/
+    """
 
     hx_disinherit: str | None = None
-    """control and disable automatic attribute inheritance for child nodes"""
+    """control and disable automatic attribute inheritance for child nodes
+
+       see https://htmx.org/attributes/hx-disinherit/
+    """
 
     hx_encoding: str | None = None
-    """changes the request encoding type"""
+    """changes the request encoding type
+
+       see https://htmx.org/attributes/hx-encoding/
+    """
 
     hx_ext: str | None = None
-    """extensions to use for this element"""
+    """extensions to use for this element
+
+       see https://htmx.org/attributes/hx-ext/
+    """
 
     hx_headers: str | None = None
-    """adds to the headers that will be submitted with the request"""
+    """adds to the headers that will be submitted with the request
+
+       see https://htmx.org/attributes/hx-headers/
+    """
 
     hx_history: str | None = None
-    """prevent sensitive data being saved to the history cache"""
+    """prevent sensitive data being saved to the history cache
+
+       see https://htmx.org/attributes/hx-history/
+    """
 
     hx_history_elt: str | None = None
-    """the element to snapshot and restore during history navigation"""
+    """the element to snapshot and restore during history navigation
+
+       see https://htmx.org/attributes/hx-history-elt/
+    """
 
     hx_include: str | None = None
-    """include additional data in requests"""
+    """include additional data in requests
+
+       see https://htmx.org/attributes/hx-include/
+    """
 
     hx_indicator: str | None = None
-    """the element to put the htmx-request class on during the request"""
+    """the element to put the htmx-request class on during the request
+
+       see https://htmx.org/attributes/hx-indicator/
+    """
 
     hx_params: str | None = None
-    """filters the parameters that will be submitted with a request"""
+    """filters the parameters that will be submitted with a request
+
+       see https://htmx.org/attributes/hx-params/
+    """
 
     hx_patch: str | None = None
-    """issues a PATCH to the specified URL"""
+    """issues a PATCH to the specified URL
+
+       see https://htmx.org/attributes/hx-patch/
+    """
 
     hx_preserve: str | None = None
-    """specifies elements to keep unchanged between requests"""
+    """specifies elements to keep unchanged between requests
+
+       see https://htmx.org/attributes/hx-preserve/
+    """
 
     hx_prompt: str | None = None
-    """shows a prompt() before submitting a request"""
+    """shows a prompt() before submitting a request
+
+       see https://htmx.org/attributes/hx-prompt/
+    """
 
     hx_put: str | None = None
-    """issues a PUT to the specified URL"""
+    """issues a PUT to the specified URL
+
+       see https://htmx.org/attributes/hx-put/
+    """
 
     hx_replace_url: str | None = None
-    """replace the URL in the browser location bar"""
+    """replace the URL in the browser location bar
+
+       see https://htmx.org/attributes/hx-replace_url/
+    """
 
     hx_request: str | None = None
-    """configures various aspects of the request"""
+    """configures various aspects of the request
+
+       see https://htmx.org/attributes/hx-request/
+    """
 
     hx_sse: str | None = None
-    """has been moved to an extension. Documentation for older versions"""
+    """has been moved to an extension. Documentation for older versions
+
+       see https://htmx.org/attributes/hx-sse/
+    """
 
     hx_sync: str | None = None
-    """control how requests made by different elements are synchronized"""
+    """control how requests made by different elements are synchronized
+
+       see https://htmx.org/attributes/hx-sync/
+    """
 
     hx_validate: str | None = None
-    """force elements to validate themselves before a request"""
+    """force elements to validate themselves before a request
+
+       see https://htmx.org/attributes/hx-validate/
+    """
 
     hx_ws: str | None = None
-    """has been moved to an extension. Documentation for older versions"""
+    """has been moved to an extension. Documentation for older versions
+
+       see https://htmx.org/attributes/hx-ws/
+    """
 
     def add_class(self, *classes: str) -> None:
         """Add classes to the 'class' attribute of the tag.
