@@ -1,12 +1,12 @@
 .PHONY: fmt check tests
 
 fmt:
-	poetry run black .
-	poetry run ruff --fix .
+	poetry run ruff format .
+	poetry run ruff check --fix .
 
 check:
-	poetry run black . --check
-	poetry run ruff .
+	poetry run ruff format --check .
+	poetry run ruff check .
 	poetry run mypy src/
 
 tests:
