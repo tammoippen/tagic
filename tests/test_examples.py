@@ -327,27 +327,25 @@ def test_void_elements():
 
 
 def test_none_void_elements():
-    for elem in [div, span, a, html_tag, img]:
-        assert f"<{elem.tag_name}></{elem.tag_name}>" == str(elem())
+    for elem in [div, span, a, style, title, main]:
+        assert f"<{elem().tag_name}></{elem().tag_name}>" == str(elem())
 
 
 def test_raw_elements_with_plain_text():
     for elem in [script, style]:
         assert (
-            f"<{elem.tag_name}>This is text &amp; "
-            "some < stuff; that would() be escaped//.</{elem.tag_name}>"
+            f"<{elem().tag_name}>This is text &amp; "
+            f"some < stuff; that would() be escaped//.</{elem().tag_name}>"
         ) == str(elem["This is text &amp; some < stuff; that would() be escaped//."])
 
 
 def test_raw_elements_with_no_escape():
     for elem in [script, style]:
         assert (
-            f"<{elem.tag_name}>This &amp; < stuff; would() escaped//.</{elem.tag_name}>"
-            == str(
-                elem[
-                    "This &amp; < stuff; would() escaped//.", base.NoEscape("FooBar()")
-                ]
-            )
+            f"<{elem().tag_name}>This &amp; "
+            f"< stuff; would() escaped//.FooBar()</{elem().tag_name}>"
+        ) == str(
+            elem["This &amp; < stuff; would() escaped//.", base.NoEscape("FooBar()")]
         )
 
 
