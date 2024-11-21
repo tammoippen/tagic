@@ -70,7 +70,9 @@ Will return
         in between
       </p>
     </main>
-    <footer hidden />
+    <footer hidden>
+
+    </footer>
   </body>
 </html>
 ```
