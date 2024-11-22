@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Literal
 
-from .base import DOMConfig, Node, NoEscape
+from .base import DOMConfig, Node, NoEscape, _not_none
 
 BoolVals = Literal["true", "false"]
 
@@ -584,6 +584,9 @@ class HTMLElement(Node):
             "wbr",
         ]
         raw_tags = ["script", "style"]
+
+        # filter None children
+        self.children = list(filter(_not_none, self.children))
 
         if self.tag_name in void_tags and self.children != []:
             raise ValueError("Void tags are not allowed to have content.")

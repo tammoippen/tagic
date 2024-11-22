@@ -16,6 +16,7 @@ from tagic.html import (
     hr,
     img,
     input,
+    li,
     link,
     main,
     meta,
@@ -26,6 +27,7 @@ from tagic.html import (
     style,
     title,
     track,
+    ul,
     wbr,
 )
 from tagic.html import (
@@ -81,6 +83,12 @@ def test_a_empty_str():
 def test_a_no_content():
     expect = '<a id="foo" href="https://example.com"></a>'
     assert expect == a(href="https://example.com", id="foo").render()
+
+
+def test_a_none_content():
+    expect = '<a id="foo" href="https://example.com"></a>'
+    assert expect == a(href="https://example.com", id="foo")[None].render()
+    assert expect == a(href="https://example.com", id="foo", children=[None]).render()
 
 
 def test_basic_tags():
@@ -326,9 +334,31 @@ def test_void_elements():
             str(elem["some text"])
 
 
+def test_void_elements_none():
+    for elem in [
+        area,
+        base_elem,
+        br,
+        col,
+        embed,
+        hr,
+        img,
+        input,
+        link,
+        meta,
+        source,
+        track,
+        wbr,
+    ]:
+        assert f"<{elem().tag_name} />" == str(elem[None])
+        assert f"<{elem().tag_name} />" == str(elem(children=[None]))
+
+
 def test_none_void_elements():
     for elem in [div, span, a, style, title, main]:
         assert f"<{elem().tag_name}></{elem().tag_name}>" == str(elem())
+        assert f"<{elem().tag_name}></{elem().tag_name}>" == str(elem(children=[None]))
+        assert f"<{elem().tag_name}></{elem().tag_name}>" == str(elem[None])
 
 
 def test_raw_elements_with_plain_text():
@@ -353,3 +383,18 @@ def test_raw_elements_with_bad_elem():
     for elem in [script, style]:
         with pytest.raises(ValueError):
             str(elem[div()])
+
+
+def test_filter_none_elements():
+    assert (
+        "<div><div>Fooo</div><span>Bar</span><a></a>"
+        "<ul><li>elem 0</li><li>elem 2</li><li>elem 4</li></ul></div>"
+    ) == str(
+        div[
+            div["Fooo"],
+            None,
+            span["Bar"],
+            a[None],
+            ul(children=[li[f"elem {i}"] if i % 2 == 0 else None for i in range(5)]),
+        ]
+    )

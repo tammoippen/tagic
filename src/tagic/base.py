@@ -1,6 +1,10 @@
 from dataclasses import dataclass, field, fields
 from html import escape
-from typing import ClassVar, Iterable, Protocol, Self
+from typing import Any, ClassVar, Iterable, Protocol, Self
+
+
+def _not_none(v: Any) -> bool:
+    return v is not None
 
 
 class CanRender(Protocol):
@@ -19,7 +23,9 @@ class DOMConfig:
 class _Meta(type):
     """Allow []-access on the class of Nodes."""
 
-    def __getitem__(self, child: str | CanRender | Iterable[str | CanRender]) -> "Node":
+    def __getitem__(
+        self, child: str | CanRender | Iterable[str | CanRender] | None
+    ) -> "Node":
         return self()[child]  # type: ignore
 
 
@@ -27,12 +33,16 @@ class _Meta(type):
 class Node(metaclass=_Meta):
     NAME: ClassVar[str | None] = None
     attr: dict[str, str | bool] = field(default_factory=dict)
-    children: list[str | CanRender] = field(default_factory=list)
+    children: list[str | CanRender | None] = field(default_factory=list)
 
-    def __getitem__(self, child: str | CanRender | Iterable[str | CanRender]) -> Self:
+    def __getitem__(
+        self, child: str | CanRender | Iterable[str | CanRender] | None
+    ) -> Self:
         """Add children to the node via []-syntax."""
-        if isinstance(child, Iterable) and not isinstance(child, str):
-            self.children = list(child)
+        if child is None:
+            pass
+        elif isinstance(child, Iterable) and not isinstance(child, str):
+            self.children = list(filter(_not_none, child))
         else:
             self.children = [child]
 
@@ -61,6 +71,8 @@ class Node(metaclass=_Meta):
             new_indent = indent + (" " * DOMConfig.INDENT)
             indent_str = indent
         result = f"{indent_str}<{self.tag_name}"
+        # filter None children
+        self.children = list(filter(_not_none, self.children))
         no_content = len(self.children) == 0
 
         def indent_newline() -> None:
@@ -88,7 +100,9 @@ class Node(metaclass=_Meta):
         result = ""
 
         for child in self.children:
-            if isinstance(child, str):
+            if child is None:
+                continue
+            elif isinstance(child, str):
                 result += f"{indent or ''}{escape(child)}"
                 if indent is not None:
                     result += "\n"
