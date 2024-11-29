@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field, fields
 from html import escape
-from typing import Any, ClassVar, Iterable, Protocol, Self
+from typing import Any, ClassVar, Protocol, Self, Sequence
 
 
 def _not_none(v: Any) -> bool:
@@ -10,6 +10,10 @@ def _not_none(v: Any) -> bool:
 class CanRender(Protocol):
     def do_render(self, indent: str | None) -> str:  # pragma: no cover
         ...
+
+
+Element = str | None | CanRender
+Elements = Sequence[Element]
 
 
 class DOMConfig:
@@ -23,9 +27,7 @@ class DOMConfig:
 class _Meta(type):
     """Allow []-access on the class of Nodes."""
 
-    def __getitem__(
-        self, child: str | CanRender | Iterable[str | CanRender] | None
-    ) -> "Node":
+    def __getitem__(self, child: Element | Elements) -> "Node":
         return self()[child]  # type: ignore
 
 
@@ -33,15 +35,13 @@ class _Meta(type):
 class Node(metaclass=_Meta):
     NAME: ClassVar[str | None] = None
     attr: dict[str, str | bool] = field(default_factory=dict)
-    children: list[str | CanRender | None] = field(default_factory=list)
+    children: Elements = field(default_factory=list)
 
-    def __getitem__(
-        self, child: str | CanRender | Iterable[str | CanRender] | None
-    ) -> Self:
+    def __getitem__(self, child: Element | Elements) -> Self:
         """Add children to the node via []-syntax."""
         if child is None:
             pass
-        elif isinstance(child, Iterable) and not isinstance(child, str):
+        elif isinstance(child, Sequence) and not isinstance(child, str):
             self.children = list(filter(_not_none, child))
         else:
             self.children = [child]
