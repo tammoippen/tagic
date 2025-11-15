@@ -119,7 +119,7 @@ class Node(metaclass=_Meta):
                 "aria_attr",
                 "data_attr",
                 "attr",
-            ):
+            ) or field_.name.startswith("_"):
                 continue
             value = getattr(self, field_.name)
             if value is not None and value is not False:
