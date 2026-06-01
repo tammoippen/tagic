@@ -26,7 +26,7 @@ def test_some_content_child():
 
 
 def test_some_content_child_indent():
-    expect = '<root a="bar" b>\n  <child>\n    Baz\n  </child>\n  Fooo\n</root>\n'
+    expect = '<root a="bar" b>\n  <child>Baz</child>\n  Fooo\n</root>\n'
     child = XML("child")["Baz"]
     assert expect == (
         XML("root", attrs={"a": "bar", "b": True}, children=[child, "Fooo"])
