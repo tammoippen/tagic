@@ -246,7 +246,8 @@ def test_readme():
         "<html>\n"
         "  <head>\n"
         "    <title>Example Website</title>\n"
-        '    <meta content="This is an example website build with tagic" name="description" />\n'
+        '    <meta content="This is an example website build with tagic" '
+        'name="description" />\n'
         '    <meta charset="utf-8" />\n'
         "  </head>\n"
         "  <body>\n"
