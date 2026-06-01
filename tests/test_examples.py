@@ -201,13 +201,9 @@ def test_indent():
             "    here we have some text\n"
             "    <br />\n"
             "    and some more text\n"
-            "    <span>\n"
-            "      This is special text\n"
-            "    </span>\n"
+            "    <span>This is special text</span>\n"
             "  </p>\n"
-            '  <p id="foo">\n'
-            "    some more text\n"
-            "  </p>\n"
+            '  <p id="foo">some more text</p>\n'
             "</div>\n"
         )
         assert expect == div[
@@ -228,9 +224,7 @@ def test_indent():
             "        here we have some text\n"
             "        <br />\n"
             "        and some more text\n"
-            "        <span>\n"
-            "            This is special text\n"
-            "        </span>\n"
+            "        <span>This is special text</span>\n"
             "    </p>\n"
             "</div>\n"
         )
@@ -251,31 +245,22 @@ def test_readme():
         "<!DOCTYPE html>\n"
         "<html>\n"
         "  <head>\n"
-        "    <title>\n"
-        "      Example Website\n"
-        "    </title>\n"
-        '    <meta content="This is an example website build with tagic" '
-        'name="description" />\n'
+        "    <title>Example Website</title>\n"
+        '    <meta content="This is an example website build with tagic" name="description" />\n'
         '    <meta charset="utf-8" />\n'
         "  </head>\n"
         "  <body>\n"
         '    <header id="header">\n'
-        "      <h1>\n"
-        "        Awesome\n"
-        "      </h1>\n"
+        "      <h1>Awesome</h1>\n"
         "    </header>\n"
         "    <main>\n"
         "      <p>\n"
         "        Some text \n"
-        "        <span>\n"
-        "          with tags\n"
-        "        </span>\n"
+        "        <span>with tags</span>\n"
         "        in between\n"
         "      </p>\n"
         "    </main>\n"
-        "    <footer hidden>\n"
-        "      \n"
-        "    </footer>\n"
+        "    <footer hidden></footer>\n"
         "  </body>\n"
         "</html>\n"
         ""

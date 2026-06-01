@@ -50,29 +50,21 @@ Will return
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      Example Website
-    </title>
+    <title>Example Website</title>
     <meta content="This is an example website build with tagic" name="description" />
   </head>
   <body>
     <header id="header">
-      <h1>
-        Awesome
-      </h1>
+      <h1>Awesome</h1>
     </header>
     <main>
       <p>
         Some text
-        <span>
-          with tags
-        </span>
+        <span>with tags</span>
         in between
       </p>
     </main>
-    <footer hidden>
-
-    </footer>
+    <footer hidden></footer>
   </body>
 </html>
 ```

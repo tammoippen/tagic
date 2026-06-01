@@ -18,10 +18,10 @@ Elements = Sequence[Element]
 
 class DOMConfig:
     # Specify the indent on rendering for every level.
-    INDENT = 2
+    INDENT: int = 2
     # Render the document xhtml1 complient. See
     # https://de.wikipedia.org/wiki/Extensible_Hypertext_Markup_Language
-    FULL_XHTML = False
+    FULL_XHTML: bool = False
 
 
 class _Meta(type):
@@ -74,6 +74,7 @@ class Node(metaclass=_Meta):
         # filter None children
         self.children = list(filter(_not_none, self.children))
         no_content = len(self.children) == 0
+        single_text = len(self.children) == 1 and isinstance(self.children[0], str)
 
         def indent_newline() -> None:
             nonlocal result
@@ -86,23 +87,29 @@ class Node(metaclass=_Meta):
             result += " />"
         else:
             result += ">"
-        indent_newline()
+        if not single_text:
+            indent_newline()
 
         result += self._render_content(new_indent)
 
         if not no_content:
-            result += f"{indent_str}</{self.tag_name}>"
+            if single_text:
+                result += f"</{self.tag_name}>"
+            else:
+                result += f"{indent_str}</{self.tag_name}>"
             indent_newline()
 
         return result
 
     def _render_content(self, indent: str | None) -> str:
+        # keep text of single text nodes without indent
+        if len(self.children) == 1 and isinstance(self.children[0], str):
+            return escape(self.children[0])
         result = ""
 
         for child in self.children:
-            if child is None:
-                continue
-            elif isinstance(child, str):
+            assert child is not None
+            if isinstance(child, str):
                 result += f"{indent or ''}{escape(child)}"
                 if indent is not None:
                     result += "\n"
